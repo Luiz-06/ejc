@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌹</title> 
+    <style>
+        body {
+            background: #8B0000;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .letter-image {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .animated-mail {
+            position: absolute;
+            height: 150px;
+            width: 200px;
+            transition: .4s;
+        }
+        
+        .animated-mail .body {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 100px 200px;
+            border-color: transparent transparent #e95f55 transparent;
+            z-index: 2;
+        }
+        
+        .animated-mail .top-fold {
+            position: absolute;
+            top: 50px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 50px 100px 0 100px;
+            transform-origin: 50% 0%;
+            transition: transform .4s .4s, z-index .2s .4s;
+            border-color: #cf4a43 transparent transparent transparent;
+            z-index: 2;
+        }
+        
+        .animated-mail .back-fold {
+            position: absolute;
+            bottom: 0;
+            width: 200px;
+            height: 100px;
+            background: #cf4a43;
+            z-index: 0;
+        }
+        
+        .animated-mail .left-fold {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 50px 0 50px 100px;
+            border-color: transparent transparent transparent #e15349;
+            z-index: 2;
+        }
+        
+        .animated-mail .letter {
+            left: 20px;
+            bottom: 0px; 
+            position: absolute;
+            width: 160px;
+            height: 60px;
+            background: #FFFACD;
+            z-index: 1;
+            transition: .4s .2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .animated-mail .letter h2 {
+            margin: 0;
+            color: #8B0000;
+            opacity: 0;
+            transition: opacity .4s .2s, transform .4s .2s;
+            transform: translateY(30px);
+            font-size: 0;
+            line-height: 1.2;
+        }
+        
+        /* Estilos de hover e para a classe JavaScript */
+        .letter-image:hover .animated-mail .letter,
+        .letter-image.hover-effect .animated-mail .letter {
+            height: 180px; 
+            font-size: 16px;
+            bottom: 120px;
+            justify-content: space-around;
+        }
+
+        .letter-image:hover .animated-mail .letter h2,
+        .letter-image.hover-effect .animated-mail .letter h2 {
+            font-size: 1.2em;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animated-mail .letter .rose-emoji {
+            font-size: 0;
+            transition: font-size .4s .2s;
+            margin-bottom: 5px;
+        }
+        
+        .letter-image:hover .animated-mail .letter .rose-emoji,
+        .letter-image.hover-effect .animated-mail .letter .rose-emoji {
+            font-size: 60px;
+        }
+        
+        .animated-mail .letter .letter-border {
+            height: 10px;
+            width: 100%;
+            background: repeating-linear-gradient(
+                -45deg,
+                #cb5a5e,
+                #cb5a5e 8px,
+                transparent 8px,
+                transparent 18px
+            );
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .letter-image:hover .animated-mail .letter .letter-title,
+        .letter-image:hover .animated-mail .letter .letter-context,
+        .letter-image:hover .animated-mail .letter .letter-stamp,
+        .letter-image.hover-effect .animated-mail .letter .letter-title,
+        .letter-image.hover-effect .animated-mail .letter .letter-context,
+        .letter-image.hover-effect .animated-mail .letter .letter-stamp {
+            display: none;
+        }
+
+        .animated-mail .letter .letter-title,
+        .animated-mail .letter .letter-context,
+        .animated-mail .letter .letter-stamp {
+            transition: opacity .2s;
+        }
+        
+        .letter-image:hover .animated-mail .letter .letter-title,
+        .letter-image:hover .animated-mail .letter .letter-context,
+        .letter-image:hover .animated-mail .letter .letter-stamp,
+        .letter-image.hover-effect .animated-mail .letter .letter-title,
+        .letter-image.hover-effect .animated-mail .letter .letter-context,
+        .letter-image.hover-effect .animated-mail .letter .letter-stamp {
+            opacity: 0;
+        }
+
+        .animated-mail .letter .letter-title {
+            margin-top: 10px;
+            margin-left: 5px;
+            height: 10px;
+            width: 40%;
+            background: #cb5a5e;
+        }
+        
+        .animated-mail .letter .letter-context {
+            margin-top: 10px;
+            margin-left: 5px;
+            height: 10px;
+            width: 20%;
+            background: #cb5a5e;
+        }
+        
+        .animated-mail .letter .letter-stamp {
+            margin-top: 30px;
+            margin-left: 120px;
+            border-radius: 100%;
+            height: 30px;
+            width: 30px;
+            background: #cb5a5e;
+            opacity: 0.3;
+        }
+
+        .shadow {
+            position: absolute;
+            top: 200px;
+            left: 50%;
+            width: 400px;
+            height: 30px;
+            transition: .4s;
+            transform: translateX(-50%);
+            border-radius: 100%;
+            background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.0), rgba(0,0,0,0.0));
+        }
+
+        .letter-image:hover .animated-mail,
+        .letter-image.hover-effect .animated-mail {
+            transform: translateY(50px);
+        }
+        
+        .letter-image:hover .animated-mail .top-fold,
+        .letter-image.hover-effect .animated-mail .top-fold {
+            transition: transform .4s, z-index .2s;
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+        
+        .letter-image:hover .shadow,
+        .letter-image.hover-effect .shadow {
+            width: 250px;
+        }
+
+        /* --- Estilos para celular --- */
+        @media (max-width: 600px) {
+            .letter-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .animated-mail {
+                width: 150px;
+                height: 112.5px;
+            }
+
+            .animated-mail .body {
+                border-width: 0 0 75px 150px;
+            }
+
+            .animated-mail .top-fold {
+                top: 37.5px;
+                border-width: 37.5px 75px 0 75px;
+            }
+
+            .animated-mail .back-fold {
+                width: 150px;
+                height: 75px;
+            }
+            
+            .animated-mail .left-fold {
+                border-width: 37.5px 0 37.5px 75px;
+            }
+
+            .animated-mail .letter {
+                left: 15px;
+                width: 120px;
+                height: 45px;
+            }
+
+            .letter-image:hover .animated-mail .letter,
+            .letter-image.hover-effect .animated-mail .letter {
+                height: 135px;
+                bottom: 90px;
+                font-size: 14px;
+            }
+
+            .animated-mail .letter .rose-emoji {
+                font-size: 0;
+            }
+        
+            .letter-image:hover .animated-mail .letter .rose-emoji,
+            .letter-image.hover-effect .animated-mail .letter .rose-emoji {
+                font-size: 45px;
+            }
+
+            .letter-image:hover .animated-mail .letter h2,
+            .letter-image.hover-effect .animated-mail .letter h2 {
+                font-size: 1em;
+            }
+            
+            .animated-mail .letter .letter-stamp {
+                margin-left: 90px;
+                height: 22px;
+                width: 22px;
+            }
+
+            .shadow {
+                top: 150px;
+                width: 300px;
+            }
+        
+            .letter-image:hover .animated-mail,
+            .letter-image.hover-effect .animated-mail {
+                transform: translateY(37.5px);
+            }
+        
+            .letter-image:hover .shadow,
+            .letter-image.hover-effect .shadow {
+                width: 187.5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="letter-image">
+        <div class="animated-mail">
+            <div class="back-fold"></div>
+            <div class="letter">
+                <div class="letter-border"></div>
+                <span class="rose-emoji">🌹</span>
+                <h2>Podemos te fazer uma visita?</h2>
+                <div class="letter-title"></div>
+                <div class="letter-context"></div>
+                <div class="letter-stamp">
+                    <div class="letter-stamp-inner"></div>
+                </div>
+            </div>
+            <div class="top-fold"></div>
+            <div class="body"></div>
+            <div class="left-fold"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+    <script>
+        const letterImage = document.querySelector('.letter-image');
+        letterImage.addEventListener('click', () => {
+            letterImage.classList.toggle('hover-effect');
+        });
+    </script>
+</body>
+</html>
